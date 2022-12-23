@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  musicbot:
+    image: ghcr.io/brugr/musicbot:latest
+    build: .
+    volumes:
+      - ./config.txt:/config.txt

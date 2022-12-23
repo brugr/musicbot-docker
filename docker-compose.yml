@@ -1,7 +1,0 @@
-version: "3.9"
-services:
-  musicbot:
-    image: musicbot:0.3.8
-    build: .
-    volumes:
-      - ./config.txt:/musicbot/config.txt
