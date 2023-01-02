@@ -3,9 +3,8 @@ on:
   push:
     paths:
       - 'Containerfile'
-  schedule:
-    - cron: '0 0 * * 0'
   workflow_dispatch:
+  workflow_call:
 
 env:
     IMAGE_NAME: musicbot
@@ -18,14 +17,10 @@ jobs:
   push-ghcr:
     name: Build and push image
     runs-on: ubuntu-22.04
-    strategy:
-      fail-fast: false
     steps:
-      # Checkout push-to-registry action github repository
-      - name: Checkout Push to Registry action
+      - name: Checkout
         uses: actions/checkout@v2.6.0
 
-      # Build image using Buildah action
       - name: Build Image
         id: build_image
         uses: redhat-actions/buildah-build@v2.10
@@ -36,7 +31,6 @@ jobs:
           tags: ${{ env.IMAGE_TAGS }}
           oci: true
 
-      # Push the image to GHCR (Image Registry)
       - name: Push To GHCR
         uses: redhat-actions/push-to-registry@v2.6
         id: push
